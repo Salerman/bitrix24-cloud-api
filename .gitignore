@@ -13,3 +13,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+composer.phar
+composer.lock
