@@ -1,0 +1,35 @@
+{
+  "name": "salerman/bitrix24-cloud-api",
+  "description": "SALERMAN PHP Bitrix24 cloud library",
+  "keywords": ["salerman", "crm", "bitrix24"],
+  "homepage": "http://crm.salerman.ru",
+  "type": "Library",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Mikhail Medvedev",
+      "email": "mm@salerman.agency"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "guzzlehttp/guzzle": "^7.5.1",
+    "psr/cache": "1.0.1",
+    "psr/log": "1.1.0",
+    "psr/http-client": "1.0.0",
+    "psr/http-message": "1.0.1",
+    "psr/http-server-handler": "1.0.1",
+    "psr/http-factory": "1.0.1",
+    "psr/http-server-middleware": "1.0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Salerman\\Bitrix24\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
