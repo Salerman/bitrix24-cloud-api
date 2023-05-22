@@ -16,9 +16,9 @@ class Bitrix24ApiClient
 
     protected $restApiClient = null;
 
-    public function __construct(Auth $authSettings, Config $config = null, $logger = null)
+    public function __construct(Auth $authSettings, Config $config = null, $request = null, $logger = null)
     {
-        $this->restApiClient = new Crm($authSettings, $config, $logger);
+        $this->restApiClient = new Crm($authSettings, $config, $request, $logger);
     }
 
     /**
@@ -29,7 +29,7 @@ class Bitrix24ApiClient
      * @param $raw
      * @return array|mixed|string|string[]
      */
-    public function Query($method, $params = [])
+    public function Query($method, $params = []): Result
     {
         $result = $this->restApiClient->call($method, $params);
         return $result;

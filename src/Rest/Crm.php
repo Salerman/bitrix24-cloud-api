@@ -31,11 +31,12 @@ class Crm
 
     protected $settings = null;
     protected $config = null;
+    protected $request = null;
     protected $logger = null;
 
     protected static $dataExt = [];
 
-    public function __construct(Auth $authSettings, Config $config = null, $logger = null)
+    public function __construct(Auth $authSettings, Config $config = null, $request = null, $logger = null)
     {
         $this->settings = $authSettings;
         if ($config === null) {
@@ -43,6 +44,10 @@ class Crm
         }
         $this->config = $config;
         $this->logger = $logger;
+        if ($request === null) {
+            $request = $_REQUEST;
+        }
+        $this->request = $request;
     }
 
     /**
@@ -57,21 +62,22 @@ class Crm
             'install' => false
         ];
 
-        if($_REQUEST[ 'event' ] == 'ONAPPINSTALL' && !empty($_REQUEST[ 'auth' ]))
+
+        if($this->request[ 'event' ] == 'ONAPPINSTALL' && !empty($this->request[ 'auth' ]))
         {
-            $result['install'] = $this->setAppSettings($_REQUEST[ 'auth' ], true);
+            $result['install'] = $this->setAppSettings($this->request[ 'auth' ], true);
         }
-        elseif($_REQUEST['PLACEMENT'] == 'DEFAULT')
+        elseif($this->request['PLACEMENT'] == 'DEFAULT')
         {
             $result['rest_only'] = false;
             $result['install'] = $this->setAppSettings(
                 [
-                    'access_token' => htmlspecialchars($_REQUEST['AUTH_ID']),
-                    'expires_in' => htmlspecialchars($_REQUEST['AUTH_EXPIRES']),
-                    'application_token' => htmlspecialchars($_REQUEST['APP_SID']),
-                    'refresh_token' => htmlspecialchars($_REQUEST['REFRESH_ID']),
-                    'domain' => htmlspecialchars($_REQUEST['DOMAIN']),
-                    'client_endpoint' => 'https://' . htmlspecialchars($_REQUEST['DOMAIN']) . '/rest/',
+                    'access_token' => htmlspecialchars($this->request['AUTH_ID']),
+                    'expires_in' => htmlspecialchars($this->request['AUTH_EXPIRES']),
+                    'application_token' => htmlspecialchars($this->request['APP_SID']),
+                    'refresh_token' => htmlspecialchars($this->request['REFRESH_ID']),
+                    'domain' => htmlspecialchars($this->request['DOMAIN']),
+                    'client_endpoint' => 'https://' . htmlspecialchars($this->request['DOMAIN']) . '/rest/',
                 ],
                 true
             );
@@ -81,7 +87,7 @@ class Crm
             'info',
             'installApp',
             [
-                'request' => $_REQUEST,
+                'request' => $this->request,
                 'result' => $result
             ],
         );
@@ -235,7 +241,7 @@ class Crm
      * @return mixed array|string|boolean curl-return or error
      */
 
-    public function call($method, $params = [])
+    public function call($method, $params = []): Result
     {
         $arPost = [
             'method' => $method,
