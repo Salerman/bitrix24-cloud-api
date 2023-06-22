@@ -23,6 +23,11 @@ class Result
         }
     }
 
+    public function getRaw()
+    {
+        return $this->raw;
+    }
+
     public function toArray()
     {
         return $this->result;
