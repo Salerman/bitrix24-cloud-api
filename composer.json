@@ -1,7 +1,7 @@
 {
   "name": "salerman/bitrix24-cloud-api",
   "description": "SALERMAN PHP Bitrix24 cloud library",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": ["salerman", "crm", "bitrix24"],
   "homepage": "https://salerman.agency",
   "type": "library",
