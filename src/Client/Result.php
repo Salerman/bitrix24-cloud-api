@@ -4,7 +4,7 @@ namespace Salerman\Bitrix24\Client;
 
 class Result
 {
-    protected $result = [];
+    protected $result = null;
     protected $time = [];
     protected $errors = [];
     protected $raw = [];
@@ -20,6 +20,13 @@ class Result
         }
         if (isset($raw['errors'])) {
             $this->errors = $raw['errors'];
+        }
+
+        if (isset($raw['error'])) {
+            $this->errors[] = [
+                'error' => $raw['error'],
+                'error_description' => $raw['error_description']
+            ];
         }
     }
 
