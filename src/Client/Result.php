@@ -8,6 +8,7 @@ class Result
     protected $time = [];
     protected $errors = [];
     protected $raw = [];
+    protected $isError = false;
 
     public function __construct ($raw)
     {
@@ -23,6 +24,7 @@ class Result
         }
 
         if (isset($raw['error'])) {
+            $this->isError = true;
             $this->errors[] = [
                 'error' => $raw['error'],
                 'error_description' => $raw['error_description']
@@ -38,5 +40,25 @@ class Result
     public function toArray()
     {
         return $this->result;
+    }
+
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    public function isError()
+    {
+        return $this->isError;
     }
 }
